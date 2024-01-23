@@ -16,13 +16,14 @@
 		"voku/simple_html_dom": "4.7.17"
 	},
 	"require-dev": {
-		"automattic/vipwpcs": "^2.2",
-		"phpcompatibility/phpcompatibility-wp": "^2.1"
+		"dealerdirect/phpcodesniffer-composer-installer": "1.0.0",
+		"automattic/vipwpcs": "3.0.0",
+		"phpcompatibility/phpcompatibility-wp": "2.1.4"
 	},
 	"scripts": {
-		"phpcs-i": "@php ./vendor/bin/phpcs -i",
-		"lint": "@php ./vendor/bin/phpcs",
-		"lint-fix": "@php ./vendor/bin/phpcbf"
+		"phpcs-i": "./vendor/bin/phpcs -i",
+		"lint": "./vendor/bin/phpcs --standard=phpcs.xml",
+		"lint-fix": "./vendor/bin/phpcbf  --standard=phpcs.xml"
 	},
 	"config": {
 		"allow-plugins": {

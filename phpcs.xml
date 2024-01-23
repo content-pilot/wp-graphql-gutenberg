@@ -1,63 +1,58 @@
 <?xml version="1.0"?>
-<ruleset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" name="WPGraphQL" xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/squizlabs/PHP_CodeSniffer/master/phpcs.xsd">
-	<description>Coding standards for the WPGraphQL plugin</description>
+<ruleset name="WPGraphQL">
 
-	<!-- Configure the PHP version -->
-	<config name="testVersion" value="7.1-" />
+	<!-- What to scan -->
+	<file>.</file>
 
-	<!-- Check against minimum WP version. -->
-	<config name="minimum_supported_wp_version" value="5.0" />
-
-	<!--
-	Pass some flags to PHPCS:
-	p flag: Show progress of the run.
-	s flag: Show sniff codes in all reports.
-	-->
-	<arg value="ps" />
-
-	<!-- Enable colors in report -->
-	<arg name="colors" />
-
-	<!-- Whenever possible, cache the scan results and re-use those for unchanged files on the next scan. -->
-	<arg name="cache" value="tests/_output/cache.json" />
-
-	<!-- Check 20 files in parallel. -->
-	<arg name="parallel" value="20" />
-
-	<!-- Set severity to 1 to see everything that isn't effectively turned off. -->
-	<arg name="severity" value="1" />
-
-	<!-- Includes -->
-	<file>./plugin.php</file>
-	<file>./src</file>
-
-	<!-- Only lint php files by default -->
-	<arg name="extensions" value="php" />
-
+	<!-- Ignoring Files and Folders: https://github.com/squizlabs/PHP_CodeSniffer/wiki/Advanced-Usage#ignoring-files-and-folders -->
+	<!-- Exclude all index files from being scanned. -->
 	<exclude-pattern>*/**/tests/</exclude-pattern>
 	<exclude-pattern>*/node_modules/*</exclude-pattern>
 	<exclude-pattern>*/vendor/*</exclude-pattern>
+	<exclude-pattern>*/build/*</exclude-pattern>
 
+	<!-- How to scan -->
+	<arg value="sp"/> <!-- Show sniff and progress -->
+	<arg name="colors"/> <!-- Show results with colors -->
+	<arg name="basepath" value="."/> <!-- Strip the file paths down to the relevant bit -->
+	<arg name="extensions" value="php"/> <!-- Limit to PHP files -->
+
+	<!-- Rules: WordPress Coding Standards - see https://github.com/WordPress-Coding-Standards/WordPress-Coding-Standards -->
+	<rule ref="WordPress"/>
+
+	<!-- Loads the Automattic VIP standards -->
+	<rule ref="WordPress-VIP-Go"/>
+
+	<!-- Loads the PHP Compatibility ruleset -->
+	<rule ref="PHPCompatibilityWP" />
+	
+	<!-- PHP version check -->
+	<config name="testVersion" value="8.2-"/>
+
+	<!-- Set the minimum supported version of WordPress -->
+	<config name="minimum_wp_version" value="6.0"/>
+
+	<!-- Define the text-domain for the plugin -->
 	<rule ref="WordPress.WP.I18n">
 		<properties>
-			<property name="text_domain" type="array">
-				<element value="wp-graphql-gutenberg" />
+			<property name="text_domain" type="array" value="wp-graphql-gutenberg">
 			</property>
 		</properties>
 	</rule>
 
-	<!-- Rules -->
+	<!-- Allow array short syntax -->
+	<rule ref="WordPress">
+		<exclude name="Universal.Arrays.DisallowShortArraySyntax"/>
+	</rule>
 
-	<!-- Load PHPCompatibilityWP standards -->
-	<rule ref="PHPCompatibilityWP" />
+	<!-- Force array short syntax -->
+	<rule ref="Generic.Arrays.DisallowLongArraySyntax"/>
 
-	<!-- Load WordPress VIP Go standards - for use with projects on the (newer) VIP Go platform. -->
-	<rule ref="WordPress-VIP-Go" />
-
-	<rule ref="Squiz.Functions.MultiLineFunctionDeclaration.SpaceAfterFunction"/>
+	<rule ref="WordPress-VIP-Go">
+		<exclude name="WordPressVIPMinimum.Security.Mustache.OutputNotation"/>
+	</rule>
 
 	<rule ref="WordPress-Core">
-		<exclude name="Generic.Arrays.DisallowShortArraySyntax"/>
 
 		<!-- Should probably not be added back -->
 		<exclude name="PHPCompatibility.Keywords.ForbiddenNamesAsDeclared.objectFound"/>
@@ -93,7 +88,4 @@
 		<!-- Should be re-enabled -->
 		<exclude name="Squiz.Commenting"/>
 	</rule>
-
-	<!-- Enforce short array syntax -->
-	<rule ref="Generic.Arrays.DisallowLongArraySyntax"/>
 </ruleset>
