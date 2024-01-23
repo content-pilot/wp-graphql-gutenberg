@@ -2,6 +2,7 @@
 	"name": "pristas-peter/wp-graphql-gutenberg",
 	"description": "Query Gutenberg blocks with WPGraphQL",
 	"type": "wordpress-plugin",
+	"prefer-stable": true,
 	"autoload": {
 		"psr-4": {
 			"WPGraphqlGutenberg\\": "src/"
@@ -10,16 +11,9 @@
 			"src/"
 		]
 	},
-	"config": {
-		"optimize-autoloader": true,
-		"platform": {
-			"php": "7.3"
-		},
-		"process-timeout": 0,
-		"allow-plugins": {
-			"dealerdirect/phpcodesniffer-composer-installer": true,
-			"phpstan/extension-installer": true
-		}
+	"require": {
+		"opis/json-schema": "^1.0",
+		"voku/simple_html_dom": "4.7.17"
 	},
 	"require-dev": {
 		"automattic/vipwpcs": "^2.2",
@@ -30,8 +24,10 @@
 		"lint": "@php ./vendor/bin/phpcs",
 		"lint-fix": "@php ./vendor/bin/phpcbf"
 	},
-	"require": {
-		"opis/json-schema": "^1.0",
-		"voku/simple_html_dom": "4.7.17"
+	"config": {
+		"allow-plugins": {
+			"dealerdirect/phpcodesniffer-composer-installer": true,
+			"phpstan/extension-installer": true
+		}
 	}
 }
