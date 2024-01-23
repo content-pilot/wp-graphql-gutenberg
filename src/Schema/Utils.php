@@ -3,21 +3,6 @@
 namespace WPGraphQLGutenberg\Schema;
 
 class Utils {
-	public static function get_post_resolver( $id ) {
-		return apply_filters(
-			'graphql_gutenberg_post_resolver',
-			[ \WPGraphQL\Data\DataSource::class, 'resolve_post_object' ],
-			$id
-		);
-	}
-
-	public static function get_taxonomy_resolver( $id ) {
-		return apply_filters(
-			'graphql_gutenberg_taxonomy_resolver',
-			[ \WPGraphQL\Data\DataSource::class, 'resolve_taxonomy' ],
-			$id
-		);
-	}
 
 	public static function get_post_type_graphql_type( $post_type ) {
 		return apply_filters(

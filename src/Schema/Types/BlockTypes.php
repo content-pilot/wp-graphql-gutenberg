@@ -83,9 +83,6 @@ class BlockTypes {
 			if ( isset( $default_value ) ) {
 				$type = [ 'non_null' => $type ];
 			}
-		} elseif ( WP_DEBUG ) {
-			// phpcs:ignore
-			trigger_error( sprintf( __( 'Could not determine type of attribute "%1$s" in "%2$s"', 'wp-graphql-gutenberg' ), esc_html( $name ), esc_html( $prefix ) ), E_USER_WARNING );
 		}
 
 		return $type;
@@ -195,7 +192,6 @@ class BlockTypes {
 				'resolveType' => function ( $attributes ) use ( $types_by_definition ) {
 
 					return $types_by_definition[ wp_json_encode( $attributes['__type'] ) ];
-
 				},
 			]);
 
@@ -245,10 +241,8 @@ class BlockTypes {
 				$fields['reusableBlock'] = [
 					'type'    => [ 'non_null' => 'Node' ],
 					'resolve' => function ( $source, $args, $context, $info ) {
-						$id      = $source['attributes']['ref'];
-						$resolve = Utils::get_post_resolver( $id );
-
-						return $resolve( $id, $context );
+						$id = $source['attributes']['ref'];
+						return $context->get_loader( 'post' )->load_deferred( $id );
 					},
 				];
 
@@ -269,7 +263,6 @@ class BlockTypes {
 					return self::format_block_name( $block->name );
 				},
 			]);
-
 		});
 	}
 }

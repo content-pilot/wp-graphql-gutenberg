@@ -50,9 +50,7 @@ class Block {
 						'description' => __( 'Parent post.', 'wp-graphql-gutenberg' ),
 						'resolve'     => function ( $block, $args, $context, $info ) {
 							$id = self::get_parent_id( $block->postId );
-
-							$resolver = Utils::get_post_resolver( $id );
-							return $resolver( $id, $context );
+							return $context->get_loader( 'post' )->load_deferred( $id );
 						},
 					],
 					'parentNodeDatabaseId' => [

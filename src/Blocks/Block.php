@@ -24,7 +24,7 @@ class Block implements ArrayAccess {
 			}
 
 			$result[] = new Block( $block, $post_id, $registry, $order, $parent );
-			$order++;
+			++$order;
 		}
 
 		return $result;
@@ -41,7 +41,7 @@ class Block implements ArrayAccess {
 		foreach ( $data['innerContent'] as $value ) {
 			if ( null === $value ) {
 				$result = $result . self::parse_inner_content( $data['innerBlocks'][ $index ] );
-				$index++;
+				++$index;
 			} else {
 				$result = $result . self::strip_newlines( $value );
 			}
@@ -213,7 +213,6 @@ class Block implements ArrayAccess {
 		$this->attributesType = $result['type'];
 
 		$this->dynamicContent = $this->render_dynamic_content( $data );
-
 	}
 
 	private function render_dynamic_content( $data ) {

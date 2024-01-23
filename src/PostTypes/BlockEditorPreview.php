@@ -243,9 +243,8 @@ class BlockEditorPreview {
 			register_graphql_field(WP_GRAPHQL_GUTENBERG_PREVIEW_GRAPHQL_SINGLE_NAME, 'previewed', [
 				'type'    => 'BlockEditorContentNode',
 				'resolve' => function ( $model, $args, $context, $info ) {
-					$id       = get_post_meta( $model->ID, 'post_id', true );
-					$resolver = SchemaUtils::get_post_resolver( $id );
-					return $resolver( $id, $context );
+					$id = get_post_meta( $model->ID, 'post_id', true );
+					return $context->get_loader( 'post' )->load_deferred( $id );
 				},
 			]);
 

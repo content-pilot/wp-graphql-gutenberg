@@ -2,7 +2,7 @@
 
 namespace WPGraphQLGutenberg\Schema\Types\Connection;
 
-use WPGraphQL\Connection\PostObjects;
+use WPGraphQL\Type\Connection\PostObjects;
 use WPGraphQLGutenberg\Schema\Utils;
 
 class BlockEditorContentNodeConnection {
@@ -28,9 +28,7 @@ class BlockEditorContentNodeConnection {
 				},
 				'resolveNode'        => function ( $model, $args, $context, $info ) {
 					$id = $model->ID ?? $model;
-
-					$resolver = Utils::get_post_resolver( $id );
-					return $resolver( $id, $context );
+					return $context->get_loader( 'post' )->load_deferred( $id );
 				},
 			]);
 		});
