@@ -31,11 +31,13 @@ class Registry {
 		$registry = get_option( WP_GRAPHQL_GUTENBERG_REGISTRY_OPTION_NAME ) ?? null;
 
 		if ( empty( $registry ) ) {
+			$message = __(
+				'Client side block registry is missing. You need to open up gutenberg or load it from WPGraphQLGutenberg Admin page.',
+				'wp-graphql-gutenberg'
+			);
+
 			throw new RegistryNotSourcedException(
-				__(
-					'Client side block registry is missing. You need to open up gutenberg or load it from WPGraphQLGutenberg Admin page.',
-					'wp-graphql-gutenberg'
-				)
+				esc_html( $message ), 
 			);
 		}
 

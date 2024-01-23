@@ -9,7 +9,7 @@ use Opis\JsonSchema\Validator;
 use voku\helper\HtmlDomParser;
 
 class Block implements ArrayAccess {
-	public static function create_blocks( $blocks, $post_id, $registry, $parent = null ) {
+	public static function create_blocks( $blocks, $post_id, $registry, $parent = null ) { // phpcs:ignore
 		$result = [];
 		$order  = 0;
 
@@ -182,7 +182,7 @@ class Block implements ArrayAccess {
 		];
 	}
 
-	public function __construct( $data, $post_id, $registry, $order, $parent ) {
+	public function __construct( $data, $post_id, $registry, $order, $parent ) { // phpcs:ignore
 
 		$inner_blocks = $data['innerBlocks'];
 

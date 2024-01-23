@@ -23,9 +23,7 @@ class Utils {
 	public static function get_editor_post_types() {
 		return apply_filters(
 			'graphql_gutenberg_editor_post_types',
-			array_filter(get_post_types_by_support( 'editor' ), function (
-				$post_type
-				) {
+			array_filter(get_post_types_by_support( 'editor' ), function ( $post_type ) {
 				return use_block_editor_for_post_type( $post_type );
 			})
 		);

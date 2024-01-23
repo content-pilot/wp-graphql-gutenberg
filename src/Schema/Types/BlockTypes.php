@@ -99,7 +99,7 @@ class BlockTypes {
 
 				$fields[ self::normalize_attribute_name( $name ) ] = [
 					'type'    => $type,
-					'resolve' => function ( $attributes, $args, $context, $info ) use ( $name, $default_value ) {
+					'resolve' => function ( $attributes ) use ( $name, $default_value ) {
 						$value = $attributes[ $name ] ?? $default_value;
 						return self::normalize_attribute_value( $value, $attributes['__type'][ $name ]['type'] );
 					},
@@ -240,7 +240,7 @@ class BlockTypes {
 			add_filter('graphql_CoreBlock_fields', function ( $fields ) {
 				$fields['reusableBlock'] = [
 					'type'    => [ 'non_null' => 'Node' ],
-					'resolve' => function ( $source, $args, $context, $info ) {
+					'resolve' => function ( $source, $args, $context ) {
 						$id = $source['attributes']['ref'];
 						return $context->get_loader( 'post' )->load_deferred( $id );
 					},

@@ -116,7 +116,7 @@ class BlockEditorPreview {
 
 		add_filter(
 			'graphql_RootQueryTo' . WP_GRAPHQL_GUTENBERG_PREVIEW_GRAPHQL_SINGLE_NAME . 'ConnectionWhereArgs_fields',
-			function ( $fields, $type ) {
+			function ( $fields ) {
 				$fields['previewedDatabaseId'] = [
 					'type' => 'Int',
 				];
@@ -226,7 +226,7 @@ class BlockEditorPreview {
 
 						return [
 							'batch' => [
-								// TODO: Add created/updated entitites to response
+								// TODO: Add created/updated entities to response
 							],
 						];
 					}
@@ -239,10 +239,10 @@ class BlockEditorPreview {
 			]);
 		});
 
-		add_action('graphql_register_types', function ( $type_registry ) {
+		add_action('graphql_register_types', function () {
 			register_graphql_field(WP_GRAPHQL_GUTENBERG_PREVIEW_GRAPHQL_SINGLE_NAME, 'previewed', [
 				'type'    => 'BlockEditorContentNode',
-				'resolve' => function ( $model, $args, $context, $info ) {
+				'resolve' => function ( $model, $args, $context ) {
 					$id = get_post_meta( $model->ID, 'post_id', true );
 					return $context->get_loader( 'post' )->load_deferred( $id );
 				},

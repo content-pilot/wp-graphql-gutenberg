@@ -7,7 +7,7 @@ use WPGraphQL\Data\Connection\PostObjectConnectionResolver;
 
 class CoreImageBlockToMediaItemConnection {
 	public function __construct() {
-		add_action('graphql_register_types', function ( $type_registry ) {
+		add_action('graphql_register_types', function () {
 			register_graphql_connection([
 				'fromType'           => 'CoreImageBlock',
 				'toType'             => 'MediaItem',

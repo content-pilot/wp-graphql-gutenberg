@@ -21,7 +21,7 @@ class BlockEditorContentNode {
 					'list_of' => [ 'non_null' => 'Block' ],
 				],
 				'description' => __( 'Gutenberg blocks', 'wp-graphql-gutenberg' ),
-				'resolve'     => function ( $model, $args, $context, $info ) {
+				'resolve'     => function ( $model ) {
 					return Block::create_blocks(
 						parse_blocks( get_post( $model->ID )->post_content ),
 						$model->ID,
@@ -32,7 +32,7 @@ class BlockEditorContentNode {
 			'blocksJSON'        => [
 				'type'        => 'String',
 				'description' => __( 'Gutenberg blocks as json string', 'wp-graphql-gutenberg' ),
-				'resolve'     => function ( $model, $args, $context, $info ) {
+				'resolve'     => function ( $model ) {
 					$blocks = Block::create_blocks(
 						parse_blocks( get_post( $model->ID )->post_content ),
 						$model->ID,

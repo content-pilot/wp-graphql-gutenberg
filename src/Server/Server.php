@@ -192,14 +192,16 @@ class Server {
 		]);
 
 		if ( is_wp_error( $result ) ) {
-			throw new ServerException( join( ', ', $result->get_error_messages() ) );
+			$message = join( ', ', $result->get_error_messages() );
+			throw new ServerException( esc_html( $message ) );
 		}
 
 		// phpcs:ignore
 		$json = json_decode( $result['body'], true, JSON_THROW_ON_ERROR );
 
 		if ( 200 !== $result['response']['code'] ) {
-			throw new ServerException( $json['error']['message'] );
+			$message = $json['error']['message'];
+			throw new ServerException( esc_html( $message ) );
 		}
 
 		return $json;

@@ -41,14 +41,14 @@ class Block {
 							'list_of' => [ 'non_null' => 'Block' ],
 						],
 						'description' => __( 'Gutenberg blocks', 'wp-graphql-gutenberg' ),
-						'resolve'     => function ( $block, $args, $context, $info ) {
+						'resolve'     => function ( $block ) {
 							return $block->innerBlocks;
 						},
 					],
 					'parentNode'           => [
 						'type'        => [ 'non_null' => 'Node' ],
 						'description' => __( 'Parent post.', 'wp-graphql-gutenberg' ),
-						'resolve'     => function ( $block, $args, $context, $info ) {
+						'resolve'     => function ( $block, $args, $context ) {
 							$id = self::get_parent_id( $block->postId );
 							return $context->get_loader( 'post' )->load_deferred( $id );
 						},
@@ -63,7 +63,7 @@ class Block {
 					'isDynamic'            => [
 						'type'        => [ 'non_null' => 'Boolean' ],
 						'description' => __( 'Is block rendered server side.', 'wp-graphql-gutenberg' ),
-						'resolve'     => function ( $block, $args, $context, $info ) {
+						'resolve'     => function ( $block ) {
 							return in_array( $block->name, get_dynamic_block_names(), true );
 						},
 					],
@@ -77,7 +77,7 @@ class Block {
 					'attributesJSON'       => [
 						'type'        => 'String',
 						'description' => __( 'Block attributes, JSON encoded', 'wp-graphql-gutenberg' ),
-						'resolve'     => function ( $block, $args, $context, $info ) {
+						'resolve'     => function ( $block ) {
 							return wp_json_encode( $block->attributes );
 						},
 					],
