@@ -12,7 +12,7 @@ jobs:
         steps:
             # Check out repository
             - name: Checkout code
-              uses: actions/checkout@v2
+              uses: actions/checkout@v4
             # Create our release with tag as name
             - name: Create Release
               id: create_release
@@ -34,7 +34,7 @@ jobs:
             # Create ZIP archive of dist version
             # Located in the /build directory we created earlier
             - name: Create artifact
-              uses: montudor/action-zip@v0.1.0
+              uses: montudor/action-zip@v1.0.0
               with:
                   args: zip -X -r build/${{ github.event.repository.name }}.zip . -x *.git* node_modules/\* .* "*/\.*" CODE_OF_CONDUCT.md CONTRIBUTING.md ISSUE_TEMPLATE.md PULL_REQUEST_TEMPLATE.md dev-helpers** build**
             # Upload our ZIP archive as an asset to the release we created earlier
