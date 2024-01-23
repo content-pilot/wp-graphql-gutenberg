@@ -24,7 +24,7 @@ if ( ! defined( 'WP_GRAPHQL_GUTENBERG_SERVER_USER_ROLE' ) ) {
 if ( ! defined( 'WP_GRAPHQL_GUTENBERG_SERVER_USER_ROLE_DISPLAY_NAME' ) ) {
 	define(
 		'WP_GRAPHQL_GUTENBERG_SERVER_USER_ROLE_DISPLAY_NAME',
-		__( 'WP GraphQL Gutenberg Server User', 'wp-graphql-gutenberg' )
+		__( 'WPGraphQL Gutenberg Server User', 'wp-graphql-gutenberg' )
 	);
 }
 

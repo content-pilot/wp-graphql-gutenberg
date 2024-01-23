@@ -1,13 +1,13 @@
 <?php
 
 /**
- * Plugin Name: WP GraphQL Gutenberg
+ * Plugin Name: WPGraphQL Gutenberg
  * Plugin URI: https://github.com/pristas-peter/wp-graphql-gutenberg
- * Description: Enable blocks in WP GraphQL.
+ * Description: Enable blocks in WPGraphQL.
  * Author: pristas-peter
  * Author URI:
- * Version: 0.4.6
- * Requires at least: 5.4
+ * Version: 0.4.7
+ * Requires at least: 6.0
  * License: GPL-3
  * License URI: https://www.gnu.org/licenses/gpl-3.0.html
  */
@@ -52,7 +52,7 @@ if ( ! class_exists( 'WPGraphQLGutenberg' ) ) {
 		private function setup_constants() {
 			// Plugin version.
 			if ( ! defined( 'WP_GRAPHQL_GUTENBERG_VERSION' ) ) {
-				define( 'WP_GRAPHQL_GUTENBERG_VERSION', '0.4.6' );
+				define( 'WP_GRAPHQL_GUTENBERG_VERSION', '0.4.7' );
 			}
 
 			// Plugin Folder Path.
