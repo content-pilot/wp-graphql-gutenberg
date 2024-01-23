@@ -140,7 +140,7 @@ class Settings extends Component {
 
 		return (
 			<Container>
-				<Heading>{ __( 'WP GraphQL Gutenberg Admin', 'wp-graphql-gutenberg' ) }</Heading>
+				<Heading>{ __( 'WPGraphQL Gutenberg', 'wp-graphql-gutenberg' ) }</Heading>
 				{ noticeUI }
 				<TableContainer>
 					<Table>
