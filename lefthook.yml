@@ -1,0 +1,11 @@
+# https://github.com/evilmartians/lefthook/blob/master/docs/configuration.md
+
+pre-commit:
+  parallel: false
+  commands:
+    phpcbf:
+      glob: "*.php"
+      run: ./vendor/bin/phpcbf --extensions=php --warning-severity=8 -s {staged_files}
+    phpcs:
+      glob: "*.php"
+      run: ./vendor/bin/phpcs --extensions=php --warning-severity=8 -s {staged_files}
