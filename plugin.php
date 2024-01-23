@@ -50,7 +50,7 @@ if ( ! class_exists( 'WPGraphQLGutenberg' ) ) {
 		}
 
 		private function setup_constants() {
-			// // Plugin version.
+			// Plugin version.
 			if ( ! defined( 'WP_GRAPHQL_GUTENBERG_VERSION' ) ) {
 				define( 'WP_GRAPHQL_GUTENBERG_VERSION', '0.4.4' );
 			}
