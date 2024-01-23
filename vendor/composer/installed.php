@@ -3,7 +3,7 @@
         'name' => 'content-pilot/wp-graphql-gutenberg',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => '622a78f08545d5204edf689c38ea7eed95b96e5f',
+        'reference' => '88082b8ba19eecae4447a0d5a69e5911f20c20f2',
         'type' => 'wordpress-plugin',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -13,7 +13,7 @@
         'content-pilot/wp-graphql-gutenberg' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => '622a78f08545d5204edf689c38ea7eed95b96e5f',
+            'reference' => '88082b8ba19eecae4447a0d5a69e5911f20c20f2',
             'type' => 'wordpress-plugin',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
