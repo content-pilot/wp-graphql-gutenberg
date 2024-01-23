@@ -285,6 +285,10 @@
                 "dom",
                 "php dom"
             ],
+            "support": {
+                "issues": "https://github.com/voku/simple_html_dom/issues",
+                "source": "https://github.com/voku/simple_html_dom/tree/4.7.17"
+            },
             "funding": [
                 {
                     "url": "https://www.paypal.me/moelleken",
