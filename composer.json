@@ -2,7 +2,6 @@
 	"name": "content-pilot/wp-graphql-gutenberg",
 	"description": "Query Gutenberg blocks with WPGraphQL",
 	"type": "wordpress-plugin",
-	"prefer-stable": true,
 	"autoload": {
 		"psr-4": {
 			"WPGraphqlGutenberg\\": "src/"

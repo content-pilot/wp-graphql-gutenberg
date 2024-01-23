@@ -37,7 +37,6 @@ Thumbs.db
 
 # Composer #
 ##########
-vendor
 vendors
 vendors/composer/
 !assets/js/vendor/
