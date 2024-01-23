@@ -1,0 +1,49 @@
+name: Tag, Build, Release
+on:
+    push:
+        # Run when tag is pushed to repository
+        # Pattern matching for semantic version number
+        # https://semver.org/#summary
+        tags:
+            - '*.*.*'
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        steps:
+            # Check out repository
+            - name: Checkout code
+              uses: actions/checkout@v2
+            # Create our release with tag as name
+            - name: Create Release
+              id: create_release
+              uses: actions/create-release@v1
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              with:
+                  tag_name: ${{ github.ref }}
+                  release_name: ${{ github.ref }}
+                  body: Release for version ${{ github.ref }}
+                  draft: false
+                  prerelease: false
+            # Run Composer to build dist version
+            # Create empty directory to later house our ZIP archive
+            - name: Build project
+              run: |
+                  composer install --no-dev --optimize-autoloader --ansi --no-progress --no-interaction --prefer-dist
+                  mkdir build
+            # Create ZIP archive of dist version
+            # Located in the /build directory we created earlier
+            - name: Create artifact
+              uses: montudor/action-zip@v0.1.0
+              with:
+                  args: zip -X -r build/${{ github.event.repository.name }}.zip . -x *.git* node_modules/\* .* "*/\.*" CODE_OF_CONDUCT.md CONTRIBUTING.md ISSUE_TEMPLATE.md PULL_REQUEST_TEMPLATE.md dev-helpers** build**
+            # Upload our ZIP archive as an asset to the release we created earlier
+            - name: Upload release asset
+              uses: actions/upload-release-asset@v1
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              with:
+                  upload_url: ${{ steps.create_release.outputs.upload_url }}
+                  asset_path: ./build/${{ github.event.repository.name }}.zip
+                  asset_name: ${{ github.event.repository.name }}.zip
+                  asset_content_type: application/zip
