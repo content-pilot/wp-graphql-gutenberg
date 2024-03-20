@@ -12,7 +12,8 @@
 	},
 	"require": {
 		"opis/json-schema": "^1.0",
-		"voku/simple_html_dom": "4.7.31"
+		"voku/simple_html_dom": "4.7.31",
+		"symfony/css-selector": "5.4"
 	},
 	"require-dev": {
 		"dealerdirect/phpcodesniffer-composer-installer": "1.0.0",
