@@ -58,6 +58,7 @@ class Block implements ArrayAccess {
 
 			switch ( $source ) {
 				case 'html':
+				case 'rich-text':
 					$source_node = ! empty( $value['selector'] ) ? $node->findOne( $value['selector'] ) : $node;
 
 					if ( $source_node ) {
@@ -155,7 +156,7 @@ class Block implements ArrayAccess {
 				])
 			);
 
-			$validator = new Validator();
+			$validator = new Validator(); 
 
 			// Convert $attributes to an object, handle both nested and empty objects.
 			$attrs  = empty( $attributes )
