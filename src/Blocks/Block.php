@@ -9,6 +9,62 @@ use Opis\JsonSchema\Validator;
 use voku\helper\HtmlDomParser;
 
 class Block implements ArrayAccess {
+
+	public $innerBlocks;
+
+	public $postId;
+
+	public $name;
+
+	public $blockType;
+
+	public $originalContent;
+
+	public $saveContent;
+
+	public $order;
+
+	public $get_parent;
+
+	public $attributes;
+
+	public $attributesType;
+
+	public $dynamicContent;
+
+	public function __construct( $data, $post_id, $registry, $order, $parent ) { // phpcs:ignore
+
+		$inner_blocks = $data['innerBlocks'];
+
+		// Handle reusable blocks.
+		if ( 'core/block' === $data['blockName'] && isset( $data['attrs']['ref'] ) ) {
+			$reusable_post = get_post( absint( $data['attrs']['ref'] ) );
+
+			if ( ! empty( $reusable_post ) ) {
+				$inner_blocks = parse_blocks( $reusable_post->post_content );
+			}
+		}
+
+		$this->innerBlocks = self::create_blocks( $inner_blocks, $post_id, $registry, $this );
+
+		$this->name            = $data['blockName'];
+		$this->postId          = $post_id;
+		$this->blockType       = $registry[ $this->name ];
+		$this->originalContent = self::strip_newlines( $data['innerHTML'] );
+		$this->saveContent     = self::parse_inner_content( $data );
+		$this->order           = $order;
+		$this->get_parent      = function () use ( &$parent ) {
+			return $parent;
+		};
+
+		$result = self::parse_attributes( $data, $this->blockType );
+
+		$this->attributes     = $result['attributes'];
+		$this->attributesType = $result['type'];
+
+		$this->dynamicContent = $this->render_dynamic_content( $data );
+	}
+
 	public static function create_blocks( $blocks, $post_id, $registry, $parent = null ) { // phpcs:ignore
 		$result = [];
 		$order  = 0;
@@ -57,6 +113,16 @@ class Block implements ArrayAccess {
 			$source = $value['source'] ?? null;
 
 			switch ( $source ) {
+				case 'rich-text':
+					// Most 'html' sources were converted to 'rich-text' in WordPress 6.5.
+					// https://github.com/WordPress/gutenberg/pull/43204
+					$source_node = ! empty( $value['selector'] ) ? $node->findOne( $value['selector'] ) : $node;
+
+					if ( $source_node ) {
+						$result[ $key ] = $source_node->innerhtml;
+					}
+
+					break;
 				case 'html':
 					$source_node = ! empty( $value['selector'] ) ? $node->findOne( $value['selector'] ) : $node;
 
@@ -85,14 +151,14 @@ class Block implements ArrayAccess {
 
 					break;
 				case 'attribute':
-					$source_node = $value['selector'] ? $node->findOne( $value['selector'] ) : $node;
+					$source_node = isset( $value['selector'] ) ? $node->findOne( $value['selector'] ) : $node;
 
 					if ( $source_node ) {
 						$result[ $key ] = $source_node->getAttribute( $value['attribute'] );
 					}
 					break;
 				case 'text':
-					$source_node = $value['selector'] ? $node->findOne( $value['selector'] ) : $node;
+					$source_node = isset( $value['selector'] ) ? $node->findOne( $value['selector'] ) : $node;
 
 					if ( $source_node ) {
 						$result[ $key ] = $source_node->plaintext;
@@ -182,39 +248,6 @@ class Block implements ArrayAccess {
 		];
 	}
 
-	public function __construct( $data, $post_id, $registry, $order, $parent ) { // phpcs:ignore
-
-		$inner_blocks = $data['innerBlocks'];
-
-		// Handle reusable blocks.
-		if ( 'core/block' === $data['blockName'] && isset( $data['attrs']['ref'] ) ) {
-			$reusable_post = get_post( absint( $data['attrs']['ref'] ) );
-
-			if ( ! empty( $reusable_post ) ) {
-				$inner_blocks = parse_blocks( $reusable_post->post_content );
-			}
-		}
-
-		$this->innerBlocks = self::create_blocks( $inner_blocks, $post_id, $registry, $this );
-
-		$this->name            = $data['blockName'];
-		$this->postId          = $post_id;
-		$this->blockType       = $registry[ $this->name ];
-		$this->originalContent = self::strip_newlines( $data['innerHTML'] );
-		$this->saveContent     = self::parse_inner_content( $data );
-		$this->order           = $order;
-		$this->get_parent      = function () use ( &$parent ) {
-			return $parent;
-		};
-
-		$result = self::parse_attributes( $data, $this->blockType );
-
-		$this->attributes     = $result['attributes'];
-		$this->attributesType = $result['type'];
-
-		$this->dynamicContent = $this->render_dynamic_content( $data );
-	}
-
 	private function render_dynamic_content( $data ) {
 		$registry          = \WP_Block_Type_Registry::get_instance();
 		$server_block_type = $registry->get_registered( $this->name );
@@ -226,19 +259,19 @@ class Block implements ArrayAccess {
 		return render_block( $data );
 	}
 
-	public function offsetExists( $offset ) {
+	public function offsetExists( $offset ): bool {
 		return isset( $this->$offset );
 	}
 
-	public function offsetGet( $offset ) {
+	public function offsetGet( $offset ): mixed {
 		return $this->$offset;
 	}
 
-	public function offsetSet( $offset, $value ) {
+	public function offsetSet( $offset, $value ): void {
 		$this->$offset = $value;
 	}
 
-	public function offsetUnset( $offset ) {
+	public function offsetUnset( $offset ): void {
 		unset( $this->$offset );
 	}
 }

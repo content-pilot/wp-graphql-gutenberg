@@ -42,6 +42,9 @@ class BlockTypes {
 
 		if ( isset( $attribute['type'] ) ) {
 			switch ( $attribute['type'] ) {
+				case 'rich-text':
+					$type = [ 'non_null' => 'String' ];
+					break;
 				case 'string':
 					$type = 'String';
 					break;
@@ -77,7 +80,7 @@ class BlockTypes {
 			$type = 'String';
 		}
 
-		if ( null !== $type ) {
+		if ( null !== $type && ! is_array( $type ) ) {
 			$default_value = $attribute['default'] ?? null;
 
 			if ( isset( $default_value ) ) {
@@ -116,6 +119,7 @@ class BlockTypes {
 
 	protected static function normalize_attribute_value( $value, $type ) {
 		switch ( $type ) {
+			case 'rich-text':
 			case 'string':
 				return (string) $value;
 			case 'number':
