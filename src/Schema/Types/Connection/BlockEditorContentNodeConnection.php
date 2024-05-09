@@ -14,14 +14,8 @@ class BlockEditorContentNodeConnection {
 				'fromFieldName'      => 'blockEditorContentNodes',
 				'connectionArgs'     => PostObjects::get_connection_args(),
 				'connectionTypeName' => 'BlockEditorContentNodeConnection',
-				'resolve'            => function ( $id, $args, $context, $info ) {
-					$resolver = new \WPGraphQL\Data\Connection\PostObjectConnectionResolver(
-						$id,
-						$args,
-						$context,
-						$info,
-						'post'
-					);
+				'resolve'            => function ( $id, $args, $context ) {
+					$resolver = $context->get_loader( 'post' )->load_deferred( $id );
 					$resolver->set_query_arg( 'post_type', Utils::get_graphql_allowed_editor_post_types() );
 					$connection = $resolver->get_connection();
 					return $connection;
