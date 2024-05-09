@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "6072c69d38b7cfea3ca95ec2f4aabf86",
+    "content-hash": "0b75cb3e39b7db0a531a718227d6b86d",
     "packages": [
         {
             "name": "opis/json-schema",
@@ -221,16 +221,16 @@
         },
         {
             "name": "voku/simple_html_dom",
-            "version": "4.7.31",
+            "version": "4.8.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/voku/simple_html_dom.git",
-                "reference": "2bc2f89d9124bd2fd4817c73facf29a8b5be3c97"
+                "reference": "9ef90f0280fe16054c117e04ea86617ce0fcdd35"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/voku/simple_html_dom/zipball/2bc2f89d9124bd2fd4817c73facf29a8b5be3c97",
-                "reference": "2bc2f89d9124bd2fd4817c73facf29a8b5be3c97",
+                "url": "https://api.github.com/repos/voku/simple_html_dom/zipball/9ef90f0280fe16054c117e04ea86617ce0fcdd35",
+                "reference": "9ef90f0280fe16054c117e04ea86617ce0fcdd35",
                 "shasum": ""
             },
             "require": {
@@ -260,17 +260,17 @@
                 {
                     "name": "dimabdc",
                     "email": "support@titor.ru",
-                    "homepage": "http://github.com/dimabdc",
+                    "homepage": "https://github.com/dimabdc",
                     "role": "Developer"
                 },
                 {
                     "name": "Lars Moelleken",
-                    "homepage": "http://www.moelleken.org/",
-                    "role": "Developer"
+                    "homepage": "https://www.moelleken.org/",
+                    "role": "Fork-Maintainer"
                 }
             ],
             "description": "Simple HTML DOM package.",
-            "homepage": "http://simplehtmldom.sourceforge.net/",
+            "homepage": "https://github.com/voku/simple_html_dom",
             "keywords": [
                 "HTML Parser",
                 "dom",
@@ -278,7 +278,7 @@
             ],
             "support": {
                 "issues": "https://github.com/voku/simple_html_dom/issues",
-                "source": "https://github.com/voku/simple_html_dom/tree/4.7.31"
+                "source": "https://github.com/voku/simple_html_dom/tree/4.8.8"
             },
             "funding": [
                 {
@@ -298,7 +298,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-12-15T10:38:11+00:00"
+            "time": "2023-02-12T16:15:15+00:00"
         }
     ],
     "packages-dev": [
