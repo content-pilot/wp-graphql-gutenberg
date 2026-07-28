@@ -40,6 +40,15 @@ class BlockTypes {
 	protected static function get_attribute_type( $name, $attribute, $prefix ) {
 		$type = null;
 
+		if ( isset( $attribute['type'] ) && is_array( $attribute['type'] ) ) {
+			// Union type (e.g. templateLock: string|boolean). GraphQL can't express scalar
+			// unions, so resolve to 'string' when present (it absorbs the other values
+			// most gracefully), otherwise to the first declared type.
+			$attribute['type'] = in_array( 'string', $attribute['type'], true )
+				? 'string'
+				: ( $attribute['type'][0] ?? null );
+		}
+
 		if ( isset( $attribute['type'] ) ) {
 			switch ( $attribute['type'] ) {
 				case 'rich-text':
