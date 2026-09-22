@@ -9,6 +9,31 @@ concurrency:
 
 jobs:
     phpcs:
-        uses: content-pilot/github-actions/.github/workflows/php-coding-standards.yml@1.10.1
-        secrets:
-            CONTENT_PILOT_USER_TOKEN: ${{ secrets.CONTENT_PILOT_USER_TOKEN }}
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v6
+
+            - name: Set PHP version
+              uses: shivammathur/setup-php@v2
+              with:
+                  php-version: '8.2'
+                  coverage: none
+
+            - name: Cache Composer dependencies
+              id: cache-vendor
+              uses: actions/cache@v5
+              with:
+                  path: vendor
+                  key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+
+            - name: Maybe install Composer dependencies
+              if: steps.cache-vendor.outputs.cache-hit != 'true'
+              run: composer install --no-interaction --no-progress
+
+            # A cache hit skips composer install, leaving an autoloader that may predate new classes.
+            - name: Refresh Composer autoloader
+              run: composer dump-autoload
+
+            - name: Lint PHP files
+              run: composer run lint
