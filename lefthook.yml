@@ -5,7 +5,12 @@ pre-commit:
   commands:
     phpcbf:
       glob: "*.php"
-      run: ./vendor/bin/phpcbf --extensions=php --warning-severity=8 -s {staged_files}
+      run: ./vendor/bin/phpcbf --standard=phpcs.xml {staged_files}
     phpcs:
       glob: "*.php"
-      run: ./vendor/bin/phpcs --extensions=php --warning-severity=8 -s {staged_files}
+      run: ./vendor/bin/phpcs --standard=phpcs.xml {staged_files}
+
+pre-push:
+  commands:
+    phpunit:
+      run: composer run test

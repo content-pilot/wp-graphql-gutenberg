@@ -13,7 +13,8 @@
 		"lint:md:js": "wp-scripts lint-md-js",
 		"lint:pkg-json": "wp-scripts lint-pkg-json",
 		"packages-update": "wp-scripts packages-update",
-		"start": "wp-scripts start"
+		"start": "wp-scripts start",
+		"prepare": "rm -rf .git/hooks && mkdir .git/hooks && npx lefthook uninstall && npx lefthook install"
 	},
 	"dependencies": {
 		"styled-components": "^4.4.1",
