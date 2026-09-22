@@ -154,7 +154,14 @@ class Block implements ArrayAccess {
 					$source_node = isset( $value['selector'] ) ? $node->findOne( $value['selector'] ) : $node;
 
 					if ( $source_node ) {
-						$result[ $key ] = $source_node->getAttribute( $value['attribute'] );
+						// The parser preserves HTML entities in attribute values, but Gutenberg
+						// sources attributes from the DOM (hpq `attr()`), which returns them
+						// decoded. Match that so e.g. `href="...?a=1&amp;b=2"` yields `&`.
+						$result[ $key ] = html_entity_decode(
+							$source_node->getAttribute( $value['attribute'] ),
+							ENT_QUOTES | ENT_HTML5,
+							'UTF-8'
+						);
 					}
 					break;
 				case 'text':
