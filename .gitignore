@@ -37,11 +37,11 @@ Thumbs.db
 
 # Composer #
 ##########
+vendor
 vendors
 vendors/composer/
 !assets/js/vendor/
 wpcs/
-composer.lock
 
 # Bower #
 ##########
