@@ -75,3 +75,6 @@ assets/img/.DS_Store
 ##########
 *.code-workspace
 launch.json
+# PHPUnit #
+##########
+.phpunit.cache

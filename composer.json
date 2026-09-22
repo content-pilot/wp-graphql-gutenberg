@@ -18,12 +18,14 @@
 	"require-dev": {
 		"dealerdirect/phpcodesniffer-composer-installer": "1.0.0",
 		"automattic/vipwpcs": "3.0.0",
-		"phpcompatibility/phpcompatibility-wp": "2.1.4"
+		"phpcompatibility/phpcompatibility-wp": "2.1.4",
+		"phpunit/phpunit": "11.5.55"
 	},
 	"scripts": {
 		"phpcs-i": "./vendor/bin/phpcs -i",
 		"lint": "./vendor/bin/phpcs --standard=phpcs.xml",
-		"lint-fix": "./vendor/bin/phpcbf  --standard=phpcs.xml"
+		"lint-fix": "./vendor/bin/phpcbf  --standard=phpcs.xml",
+		"test": "./vendor/bin/phpunit"
 	},
 	"config": {
 		"allow-plugins": {
