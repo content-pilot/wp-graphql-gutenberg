@@ -1,0 +1,14 @@
+name: Coding Standards
+
+on:
+    pull_request:
+
+concurrency:
+    group: ${{ github.workflow }}-${{ github.ref }}
+    cancel-in-progress: true
+
+jobs:
+    phpcs:
+        uses: content-pilot/github-actions/.github/workflows/php-coding-standards.yml@1.10.1
+        secrets:
+            CONTENT_PILOT_USER_TOKEN: ${{ secrets.CONTENT_PILOT_USER_TOKEN }}
