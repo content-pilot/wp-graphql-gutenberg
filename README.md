@@ -20,9 +20,6 @@ Download and install like any WordPress plugin.
 
 ## Development
 
-This fork is consumed as a Composer dependency, so `vendor/` is committed.
-The PHPUnit dependency tree is gitignored and restored by `composer install`.
-
 ```sh
 composer install
 composer run test   # PHPUnit
@@ -34,11 +31,8 @@ Pull requests run the test suite and coding standards in CI.
 
 ## Release
 
-Consumers resolve this package by git tag, so a release is a version bump and
-a tag on `main`. Nothing is built or packaged in CI.
+Releases are git tags on `main`.
 
 1. Bump `Version:` in `plugin.php` and `version` in `package.json`.
-2. Run `npm run build` and commit the updated `build/` output (it is tracked;
-   consumers receive the source tree as-is).
-3. Commit, tag with the semver version (`git tag 0.4.11`), and push both.
-4. Update the version constraint in the consuming project.
+2. If JavaScript sources changed, run `npm run build` and commit `build/`.
+3. Merge to `main` and tag the release commit with the semver version.
