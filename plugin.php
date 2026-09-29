@@ -6,7 +6,7 @@
  * Description: Enable blocks in WPGraphQL.
  * Author: pristas-peter
  * Author URI:
- * Version: 0.4.10
+ * Version: 0.4.11
  * Requires at least: 6.0
  * License: GPL-3
  * License URI: https://www.gnu.org/licenses/gpl-3.0.html
