@@ -44,8 +44,12 @@ if ( ! class_exists( 'WPGraphQLGutenberg' ) ) {
 			 * so this is set to false for tests.
 			 */
 			if ( defined( 'WP_GRAPHQL_GUTENBERG_AUTOLOAD' ) && true === WP_GRAPHQL_GUTENBERG_AUTOLOAD ) {
-				// Autoload Required Classes.
-				include_once WP_GRAPHQL_GUTENBERG_PLUGIN_DIR . 'vendor/autoload.php';
+				// Autoload Required Classes. The file is absent when the plugin is installed
+				// through Composer, where the root autoloader already provides the classes.
+				$autoload = WP_GRAPHQL_GUTENBERG_PLUGIN_DIR . 'vendor/autoload.php';
+				if ( file_exists( $autoload ) ) {
+					include_once $autoload;
+				}
 			}
 		}
 
