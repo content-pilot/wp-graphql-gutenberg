@@ -16,10 +16,10 @@
 		"symfony/css-selector": "5.4.45"
 	},
 	"require-dev": {
-		"dealerdirect/phpcodesniffer-composer-installer": "1.0.0",
-		"automattic/vipwpcs": "3.0.0",
-		"phpcompatibility/phpcompatibility-wp": "2.1.4",
-		"phpunit/phpunit": "11.5.55"
+		"dealerdirect/phpcodesniffer-composer-installer": "1.2.1",
+		"automattic/vipwpcs": "3.1.0",
+		"phpcompatibility/phpcompatibility-wp": "2.1.8",
+		"phpunit/phpunit": "11.5.57"
 	},
 	"scripts": {
 		"phpcs-i": "./vendor/bin/phpcs -i",
